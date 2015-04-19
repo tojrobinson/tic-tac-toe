@@ -77,9 +77,8 @@ var TicTacToe = (function() {
          var maxScore = -2;
          var currScore = -2;
 
-         if (hasWon(player, board, game.size)) {
-            return (player === maxPlayer) ? 1 : -1;
-         }
+         if (hasWon((maxPlayer) ? 0 : 1, board, game.size)) return -1;
+         if (hasWon(maxPlayer, board, game.size)) return 1;
 
          for (var i = 0; i < game.size; ++i) {
             for (var j = 0; j < game.size; ++j) {
@@ -91,14 +90,10 @@ var TicTacToe = (function() {
                   if (player === maxPlayer && currScore > maxScore) {
                      maxScore = currScore;
                      if (depth === 0) {
-                        console.log({r: i, c: j}, maxScore);
                         game.nextOptMove = {r: i, c: j};
                      }
                   } else if (player !== maxPlayer && currScore < minScore) {
                      minScore = currScore;
-                     if (depth === 0) {
-                        console.log("minnn", {r: i, c: j});
-                     }
                   }
                }
             }
